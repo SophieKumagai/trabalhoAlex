@@ -17,16 +17,14 @@
   /* colocar as cores do nosso projeto */
   --primary-color: #003366;
   --second-color: #004766;
-  --destaque: #005C66;
+  --destaque: rgb(191, 213, 222);
   --neutra: #E5E5E5;
   --preto: #333333;
-  --branco: #F5F5F5
+  --branco: #F5F5F5;
 }
 
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   margin: 0;
 }

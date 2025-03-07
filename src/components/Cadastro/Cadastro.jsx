@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaRegEnvelope, FaRegEyeSlash, FaRegEye, FaRegUserCircle, FaRegFile, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaRegEnvelope, FaRegEyeSlash, FaRegEye, FaRegUserCircle, FaRegFile} from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
 
 import style from './Cadastro.module.css';
@@ -27,16 +27,48 @@ function Cadastro() {
     }
   })
 
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "");
+  
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  
+    let soma = 0, resto;
+  
+    for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.charAt(9))) return false;
+  
+    soma = 0;
+    for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    
+    return resto === parseInt(cpf.charAt(10));
+  }
+
   const handleCadastro = () => {
     if (email && password && nome && sobrenome && cpf && dtNascimento && confirmPassword) {
-      setIsLoading(true);
-      setErrorMessage('');
       
-      setTimeout(() => {
-        setIsLoading(false);
-        sessionStorage.setItem("login", true)
-        navigate("/home")
-      }, 2000);
+      // verificação e-mail
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (emailRegex.test(email)) {
+        // verificação cpf
+        if (validarCPF(cpf) === true) {
+          setIsLoading(true);
+          setErrorMessage('');
+          
+          setTimeout(() => {
+            setIsLoading(false);
+            sessionStorage.setItem("login", true)
+            navigate("/home")
+          }, 2000);
+        } else {
+          setErrorMessage('Cpf inválido!');
+        }
+      } else {
+        setErrorMessage('E-mail inválido!');
+      }
 
     } else {
       setErrorMessage('Por favor, preencha todos os campos.');
@@ -111,6 +143,7 @@ function Cadastro() {
                       type="date"
                       placeholder="Data de Nascimento"
                       value={dtNascimento}
+                      max={new Date().toISOString().split("T")[0]}
                       onChange={(e) => setDtNascimento(e.target.value)}
                     />
                   </div>

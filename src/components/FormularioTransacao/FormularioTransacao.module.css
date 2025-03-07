@@ -1,0 +1,41 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.formInput {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.formButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.btnEntrada {
+    background-color: #38b000 !important;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnSaida {
+    background-color: #d90429 !important;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btnEntrada:hover {
+    background-color: #2d6a4f !important;
+}
+
+.btnSaida:hover {
+    background-color: #a3081e !important;
+}

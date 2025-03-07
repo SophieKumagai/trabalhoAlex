@@ -1,0 +1,29 @@
+.mainMenu {
+    background-color: var(--second-color);
+    width: 100vw;
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+}
+.mainMenu h1 {
+    color: var(--branco);
+}
+
+.mainMenu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.mainMenu li {
+    margin: 10px 0;
+}
+
+.mainMenu a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 18px;
+}
+
+.mainMenu a:hover {
+    text-decoration: underline;
+}

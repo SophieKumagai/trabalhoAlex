@@ -1,20 +1,27 @@
 import React from 'react';
 import style from "./Menu.module.css"
 import img from "../../assets/loading.gif"
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 import {FaChartBar, FaMoneyCheck, FaMedal} from 'react-icons/fa';
 
 function Menu() {
+
+  const navigate = useNavigate();
   const logout = () => {
     sessionStorage.clear();
     window.location.reload();
+  }
+
+  const home = () => {
+    navigate("/home")
   }
 
   return (
     <div className={style.mainMenu}>
       <div className={style.titulo}>
         <img src={img} alt="dinheiro" />
-        <h2>Controle</h2>
+        <h2 onClick={home}>Controle</h2>
       </div>
       <div className={style.container}>
         <ul>

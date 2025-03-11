@@ -1,6 +1,6 @@
 .mainMenu {
     background-color: var(--second-color);
-    width: 15rem;
+    width: 16rem;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -41,6 +41,8 @@
     color: var(--destaque);
     font-size: 18px;
     display: flex;
+    padding-right: 5px;
+    padding-left: 5px;
     align-items: center;
     gap: 0.5rem;
 }
@@ -51,7 +53,8 @@
 
 .mainMenu a:focus {
     background-color: var(--destaque);
-    padding: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
     color: var(--second-color);
     border-radius: 4px;
 }

@@ -55,6 +55,7 @@ input {
     background-color: transparent;
     border: none;
     outline: none;
+    color: var(--preto);
 }  
 
 .loginContainer button {

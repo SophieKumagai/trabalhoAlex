@@ -29,7 +29,7 @@
 }
 
 .formInput[type="date"]::-webkit-calendar-picker-indicator {
-    background: url("../../assets/calendar2.svg") no-repeat center;
+    background: url("../../../assets/calendar2.svg") no-repeat center;
     background-size: contain;
     margin-right: 5px;
     cursor: pointer;
@@ -46,7 +46,7 @@
     margin-top: 2rem;
 }
 
-.btnEntrada {
+.btnIncome {
     background-color: #38b000;
     color: white;
     padding: 1rem;
@@ -55,7 +55,7 @@
     width: 7rem;
 }
 
-.btnSaida {
+.btnExpense {
     background-color: #d90429;
     color: white;
     padding: 1rem;
@@ -64,10 +64,10 @@
     width: 7rem;
 }
 
-.btnEntrada:hover {
+.btnIncome:hover {
     background-color: #2d6a4f;
 }
 
-.btnSaida:hover {
+.btnExpense:hover {
     background-color: #a3081e;
 }

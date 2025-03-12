@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { FaRegEnvelope, FaRegEyeSlash, FaRegEye, FaRegUserCircle, FaRegFile} from 'react-icons/fa';
+import { FaRegEnvelope, FaRegEyeSlash, FaRegEye, FaRegUserCircle, FaRegFile } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; 
 
-import style from './Cadastro.module.css';
+import style from './Signup.module.css';
 import Loading from '../Loading/Loading.jsx';
 import loadingGif from '../../assets/giphy.gif';
 
-function Cadastro() {
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
+function Signup() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState('');
   const [cpf, setCpf] = useState("");
-  const [dtNascimento, setDtNascimento] = useState(null);
+  const [birthDate, setBirthDate] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,51 +27,51 @@ function Cadastro() {
     }
   })
 
-  function validarCPF(cpf) {
+  function validateCPF(cpf) {
     cpf = cpf.replace(/\D/g, "");
   
     if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
   
-    let soma = 0, resto;
+    let sum = 0, remainder;
   
-    for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.charAt(9))) return false;
+    for (let i = 0; i < 9; i++) sum += parseInt(cpf.charAt(i)) * (10 - i);
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
+    if (remainder !== parseInt(cpf.charAt(9))) return false;
   
-    soma = 0;
-    for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
+    sum = 0;
+    for (let i = 0; i < 10; i++) sum += parseInt(cpf.charAt(i)) * (11 - i);
+    remainder = (sum * 10) % 11;
+    if (remainder === 10 || remainder === 11) remainder = 0;
     
-    return resto === parseInt(cpf.charAt(10));
+    return remainder === parseInt(cpf.charAt(10));
   }
 
-  const handleCadastro = () => {
-    if (email && password && nome && sobrenome && cpf && dtNascimento && confirmPassword) {
+  const handleSignup = () => {
+    if (email && password && firstName && lastName && cpf && birthDate && confirmPassword) {
       
-      // verificação e-mail
+      // Email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (emailRegex.test(email)) {
-        // verificação cpf
-        if (validarCPF(cpf) === true) {
+        // CPF validation
+        if (validateCPF(cpf) === true) {
           setIsLoading(true);
           setErrorMessage('');
           
           setTimeout(() => {
             setIsLoading(false);
             sessionStorage.setItem("login", true)
-            navigate("/home/principal")
+            navigate("/home/main")
           }, 2000);
         } else {
-          setErrorMessage('Cpf inválido!');
+          setErrorMessage('CPF inválido!');
         }
       } else {
         setErrorMessage('E-mail inválido!');
       }
 
     } else {
-      setErrorMessage('Por favor, preencha todos os campos.');
+      setErrorMessage('Preencha todos os campos, por favor.');
     }
   };
 
@@ -101,8 +101,8 @@ function Cadastro() {
                     <input
                       type="text"
                       placeholder="Nome"
-                      value={nome}
-                      onChange={(e) => setNome(e.target.value)}
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                     <FaRegUserCircle className={style.icon} />
                   </div>
@@ -110,8 +110,8 @@ function Cadastro() {
                     <input
                       type="text"
                       placeholder="Sobrenome"
-                      value={sobrenome}
-                      onChange={(e) => setSobrenome(e.target.value)}
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                     <FaRegUserCircle className={style.icon} />
                   </div>
@@ -131,7 +131,7 @@ function Cadastro() {
                   <div className={style.inputContainer}>
                     <input
                       type="text"
-                      placeholder="Cpf"
+                      placeholder="CPF"
                       value={cpf}
                       onChange={(e) => setCpf(e.target.value)}
                     />
@@ -140,10 +140,10 @@ function Cadastro() {
                   <div className={style.inputContainer}>
                     <input
                       type="date"
-                      placeholder="Data de Nascimento"
-                      value={dtNascimento}
+                      placeholder="Data de nascimento"
+                      value={birthDate}
                       max={new Date().toISOString().split("T")[0]}
-                      onChange={(e) => setDtNascimento(e.target.value)}
+                      onChange={(e) => setBirthDate(e.target.value)}
                     />
                   </div>
               </div>
@@ -172,13 +172,13 @@ function Cadastro() {
                   </div>
               </div>
               
-              <p className={errorMessage ? style.erro : style.erroEscondido}>{errorMessage}</p>
-              <button onClick={handleCadastro}>Cadastrar</button>
-              <p onClick={login} className={style.cadastro}>Já tem uma conta? Faça o login</p>
+              <p className={errorMessage ? style.error : style.hiddenError}>{errorMessage}</p>
+              <button onClick={handleSignup}>Cadastrar</button>
+              <p onClick={login} className={style.login}>Já tem uma conta? Faça o login</p>
         </div>
       </div>
     )
   }
 }
 
-export default Cadastro;
+export default Signup;

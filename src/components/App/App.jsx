@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Im
 
 import Login from "../Login/Login.jsx"
 import Layout from "../Layout/Layout.jsx"
-import Cadastro from "../Cadastro/Cadastro.jsx"
-import ControleFinanceiro from "../ControleFinanceiro/ControleFinanceiro.jsx"
+import Signup from "../Signup/Signup.jsx"
+import FinancialControl from "../Transactions/FinancialControl/FinancialControl.jsx"
 
 function App() {
   return (
@@ -13,13 +13,13 @@ function App() {
 
         {/* sem sidebar */}
         <Route path="/" element={<Login/>} />
-        <Route path="/cadastro" element={<Cadastro/>} />
+        <Route path="/register" element={<Signup/>} />
 
         {/* com sidebar */}
         <Route path="/home" element={<Layout />}>
-          <Route path="/home/controle" element={<ControleFinanceiro />} />
-          <Route path="/home/transacoes" element={<ControleFinanceiro />} />
-          <Route path="/home/metas" element={<ControleFinanceiro />} />
+          <Route path="/home/control" element={<FinancialControl />} />
+          <Route path="/home/transactions" element={<FinancialControl />} />
+          <Route path="/home/goals" element={<FinancialControl />} />
         </Route>
       </Routes>
     </Router>

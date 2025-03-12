@@ -82,11 +82,11 @@ input {
     background-color: #064c92;
 }
 
-.erroEscondido {
+.hiddenError {
     display: none;
 }
 
-.erro {
+.error {
     color: red;
     display: flex;
     align-self: start;
@@ -94,7 +94,7 @@ input {
     margin: 0;
 }
 
-.cadastro {
+.login {
     color: var(--second-color);
     font-size: 0.8rem;
     font-weight: bold;
@@ -102,7 +102,7 @@ input {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    background: url("../../assets/calendario.svg") no-repeat center;
+    background: url("../../assets/calendar.svg") no-repeat center;
     background-size: contain;
     color: var(--primary-color);
     margin-right: 5px;

@@ -17,7 +17,7 @@ function Login() {
   useEffect(() => {
     const login = sessionStorage.getItem("login")
     if (login) {
-      navigate("/home/principal")
+      navigate("/home/main")
     }
   })
 
@@ -33,12 +33,12 @@ function Login() {
       }, 2000);
 
     } else {
-      setErrorMessage('Por favor, preencha todos os campos.');
+      setErrorMessage('Preencha todos os campos, por favor.');
     }
   };
 
-  const cadastro = () => {
-    navigate("/cadastro")
+  const register = () => {
+    navigate("/register")
   }
 
   const togglePasswordVisibility = () => {
@@ -53,7 +53,7 @@ function Login() {
     return (
       <div className={style.background}>
         <div className={style.loginContainer}>
-          <h2>Controle Financeiro</h2>
+          <h2>Financial Control</h2>
             <>
               <div className={style.inputContainer}>
                 <input
@@ -75,9 +75,9 @@ function Login() {
                   {passwordVisible ? <FaEye /> : <FaEyeSlash />}
                 </span>
               </div>
-              <p className={errorMessage ? style.erro : style.erroEscondido}>{errorMessage}</p>
-              <button onClick={handleLogin}>Entrar</button>
-              <p onClick={cadastro} className={style.cadastro}>Não tem uma conta? Cadastre-se</p>
+              <p className={errorMessage ? style.error : style.hiddenError}>{errorMessage}</p>
+              <button onClick={handleLogin}>Login</button>
+              <p onClick={register} className={style.register}>Não tem uma conta? Cadastre-se</p>
             </>
         </div>
       </div>

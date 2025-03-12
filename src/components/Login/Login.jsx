@@ -17,7 +17,7 @@ function Login() {
   useEffect(() => {
     const login = sessionStorage.getItem("login")
     if (login) {
-      navigate("/home")
+      navigate("/home/principal")
     }
   })
 

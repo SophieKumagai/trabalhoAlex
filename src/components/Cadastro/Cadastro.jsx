@@ -61,7 +61,7 @@ function Cadastro() {
           setTimeout(() => {
             setIsLoading(false);
             sessionStorage.setItem("login", true)
-            navigate("/home")
+            navigate("/home/principal")
           }, 2000);
         } else {
           setErrorMessage('Cpf inválido!');
@@ -96,7 +96,6 @@ function Cadastro() {
       <div className={style.background}>
         <div className={style.loginContainer}>
           <h2>Crie sua conta!</h2>
-            <>
               <div className={style.container}>
                   <div className={style.inputContainer}>
                     <input
@@ -176,7 +175,6 @@ function Cadastro() {
               <p className={errorMessage ? style.erro : style.erroEscondido}>{errorMessage}</p>
               <button onClick={handleCadastro}>Cadastrar</button>
               <p onClick={login} className={style.cadastro}>Já tem uma conta? Faça o login</p>
-            </>
         </div>
       </div>
     )

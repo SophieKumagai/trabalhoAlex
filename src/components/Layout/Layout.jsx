@@ -7,7 +7,7 @@ const Layout = () => {
     <div style={{ display: "flex" }}>
       <Menu />
 
-      <div style={{ marginLeft: "220px", padding: "20px", flex: 1 }}>
+      <div>
         <Outlet />
       </div>
     </div>

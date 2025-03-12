@@ -1,11 +1,25 @@
+.titulo {
+    display: flex;
+    height: 3rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon {
+    font-size: 25px;
+    color: var(--destaque);
+}
+
 .listaContainer {
     margin-top: 20px;
 }
 
-.listaTitulo {
+.listaTitulo{
+    color: var(--destaque);
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 10px;
+    padding: 0;
+    margin: 0;
 }
 
 .listaItem {

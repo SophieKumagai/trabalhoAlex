@@ -1,5 +1,6 @@
 import style from "./TransactionForm.module.css";
 import Select from "../Select/Select";
+import React, { useState, useEffect } from "react";
 
 function TransactionForm({ 
   date, setDate,
@@ -8,24 +9,88 @@ function TransactionForm({
   currency, setCurrency,
   amount, setAmount,
   category, setCategory,
-  addTransaction 
+  addTransaction,
+  errorMessage, setErrorMessage
 }) {
   
-  const currencies = [
-    { id: '0', name: 'Não selecionado' },
-    { id: '1', name: 'Real' },
-    { id: '2', name: 'Dólar' },
-    { id: '3', name: 'Euro' },
-    { id: '4', name: 'Won' },
-  ];
+  useEffect(() => {
+    getCategories();
+    getCurrencies();
+  })
 
-  const categories = [
-    { id: '0', name: 'Não selecionado' },
-    { id: '1', name: 'Alimentação' },
-    { id: '2', name: 'Saúde' },
-    { id: '3', name: 'Lazer' },
-    { id: '4', name: 'Trabalho' }
-  ];
+  const user = sessionStorage.getItem("login");
+  const [currencies, setCurrencies] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  // traduzir o texto
+  async function translateText ({text, targetLanguage}) {
+    const response = await fetch(`https://lingva.ml/api/v1/en/${targetLanguage}/${encodeURIComponent(text)}`);
+    const data = await response.json();
+    return data.translation;
+  }
+
+  // Pegar as categorias do usuário
+  async function getCategories() {
+    try {
+      const response = await fetch(`https://expense-control-backend-8rmh.onrender.com/users/${parseInt(user)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = errorData.detail || 'Erro desconhecido';
+        const translatedText = await translateText({ text: errorMessage, targetLanguage: 'pt' });
+        throw new Error(translatedText);
+      }
+
+      const list = await response.json();
+      
+      // Verifica se list.categories existe para evitar erros
+      const newCategories = list.categories?.map(category => ({
+        id: category.id,
+        name: category.ds_title
+      })) || [];
+
+      setCategories(newCategories);
+    } catch (error) {
+      console.error('Erro:', error);
+      setErrorMessage(error.message);
+    }
+  }
+
+  // Pegar as moedas
+  async function getCurrencies() {
+    try {
+      const response = await fetch(`https://expense-control-backend-8rmh.onrender.com/currencies`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const errorMessage = errorData.detail || 'Erro desconhecido';
+        const translatedText = await translateText({ text: errorMessage, targetLanguage: 'pt' });
+        throw new Error(translatedText);
+      }
+
+      const list = await response.json();
+
+      const newCurrencies = list?.map(currency => ({
+        id: currency.id,
+        name: currency.ds_title
+      })) || [];
+
+      setCurrencies(newCurrencies);
+    } catch (error) {
+      console.error('Erro:', error);
+      setErrorMessage(error.message);
+    }
+  }
 
   return (
     <div className={style.formContainer}>
@@ -55,7 +120,7 @@ function TransactionForm({
           className={style.formInput}
         />
         <label htmlFor="currency">Moeda:</label>
-        <Select options={currencies} element={currency} setElement={setCurrency}/>
+        <Select options={currencies} selectedOption={currency} setSelectedOption={setCurrency} />
       </div>
       <div className={style.inputContainer}>
         <input
@@ -66,15 +131,16 @@ function TransactionForm({
           className={style.formInput}
         />
         <label htmlFor="category">Categoria:</label>
-        <Select options={categories} element={category} setElement={setCategory}/>
+        <Select options={categories} selectedOption={category} setSelectedOption={setCategory} />
       </div>
+      <p className={errorMessage ? style.error : style.hiddenError}>{errorMessage}</p>
       <div className={style.formButtons}>
         <button onClick={() => {
-          addTransaction({ date, title, description, currency, amount, category, type: 1 });
+          addTransaction({ date, title, description, currency, amount, category, type: 1, user: user });
         }} className={style.btnIncome}>Entrada</button>
         
         <button onClick={() => {
-          addTransaction({ date, title, description, currency, amount, category, type: 2 });
+          addTransaction({ date, title, description, currency, amount, category, type: 2, user: user });
         }} className={style.btnExpense}>Saída</button>
       </div>
     </div>

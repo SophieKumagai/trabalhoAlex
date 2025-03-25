@@ -21,16 +21,55 @@ function Login() {
     }
   })
 
-  const handleLogin = () => {
+  async function translateText ({text, targetLanguage}) {
+    const response = await fetch(`https://lingva.ml/api/v1/en/${targetLanguage}/${encodeURIComponent(text)}`);
+    const data = await response.json();
+    return data.translation;
+  }
+
+  const handleLogin = async () => {
     if (email && password) {
       setIsLoading(true);
       setErrorMessage('');
       
-      setTimeout(() => {
+      try {
+        const data = await new Promise((resolve, reject) => {
+          fetch('https://expense-control-backend-8rmh.onrender.com/users/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id_email: email,
+              ds_password: password
+            })
+          })
+            .then((response) => {
+              if (!response.ok) {
+                response.json().then(data => {
+                  translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
+                    reject(translatedText);
+                  }).catch(error => {
+                    reject('Erro ao traduzir a mensagem: ' + error);
+                  });
+                });
+              } else {
+                response.json().then(data => { 
+                  sessionStorage.setItem("login", data.id);
+                  resolve(data);
+                });
+              }
+            })
+            .catch((error) => {
+              reject('Erro na requisição: ' + error.message);
+            });
+        });
+
+        navigate("/home/main");
+      } catch (error) {
         setIsLoading(false);
-        sessionStorage.setItem("login", true)
-        navigate("/home")
-      }, 2000);
+        setErrorMessage(error); 
+      }
 
     } else {
       setErrorMessage('Preencha todos os campos, por favor.');

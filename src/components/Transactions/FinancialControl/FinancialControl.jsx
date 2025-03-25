@@ -11,9 +11,9 @@ function FinancialControl() {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [currency, setCurrency] = useState(0);
+  const [currency, setCurrency] = useState(1);
   const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState(0);
+  const [category, setCategory] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -88,7 +88,16 @@ function FinancialControl() {
         const data = await new Promise((resolve, reject) => {
           fetch(`https://expense-control-backend-8rmh.onrender.com/transactions`, {
             method: 'POST',
-            body: JSON.stringify({ date, description, title, amount, user, category, type, currency }),
+            body: JSON.stringify({
+              dt_transaction: date,
+              ds_description: description,
+              ds_title: title,
+              vl_transaction: parseFloat(amount),
+              fk_tb_users_id: parseInt(user),
+              fk_tb_transaction_categories_id: parseInt(category),
+              fk_tb_transaction_types_id: parseInt(type),
+              fk_tb_currencies_id: parseInt(currency)
+            }),
             headers: {
               'Content-Type': 'application/json',
             }

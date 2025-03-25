@@ -16,7 +16,7 @@ function TransactionForm({
   useEffect(() => {
     getCategories();
     getCurrencies();
-  })
+  }, [])
 
   const user = sessionStorage.getItem("login");
   const [currencies, setCurrencies] = useState([]);

@@ -117,6 +117,7 @@ function FinancialControl() {
             });
         });
       } catch (error) {
+        setIsLoading(false)
         setErrorMessage(error);
       }
 

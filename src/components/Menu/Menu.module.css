@@ -13,12 +13,12 @@
     cursor: pointer;
 }
 
-.titulo img {
+.title img {
     width: 3rem;
     border-radius: 30%;
 }
 
-.titulo {
+.title {
     display: flex;
     height: 3rem;
     align-items: center;

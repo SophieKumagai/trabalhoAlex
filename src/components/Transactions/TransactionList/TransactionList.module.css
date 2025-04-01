@@ -1,4 +1,4 @@
-.titulo {
+.title {
     display: flex;
     height: 3rem;
     align-items: center;
@@ -10,11 +10,11 @@
     color: var(--destaque);
 }
 
-.listaContainer {
+.listContainer {
     margin-top: 20px;
 }
 
-.listaTitulo{
+.listTitle{
     color: var(--destaque);
     font-size: 1.5rem;
     font-weight: bold;
@@ -22,7 +22,7 @@
     margin: 0;
 }
 
-.listaItem {
+.listItem {
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -31,18 +31,12 @@
     margin-bottom: 5px;
 }
 
-.listaContent {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.textoEntrada {
+.textIncome {
     color: #38b000;
     font-weight: bold;
 }
 
-.textoSaida {
+.textExpense {
     color: #d90429;
     font-weight: bold;
 }

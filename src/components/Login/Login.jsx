@@ -17,28 +17,67 @@ function Login() {
   useEffect(() => {
     const login = sessionStorage.getItem("login")
     if (login) {
-      navigate("/home/principal")
+      navigate("/home")
     }
   })
 
-  const handleLogin = () => {
+  async function translateText ({text, targetLanguage}) {
+    const response = await fetch(`https://lingva.ml/api/v1/en/${targetLanguage}/${encodeURIComponent(text)}`);
+    const data = await response.json();
+    return data.translation;
+  }
+
+  const handleLogin = async () => {
     if (email && password) {
       setIsLoading(true);
       setErrorMessage('');
       
-      setTimeout(() => {
+      try {
+        const data = await new Promise((resolve, reject) => {
+          fetch('https://expense-control-backend-8rmh.onrender.com/users/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id_email: email,
+              ds_password: password
+            })
+          })
+            .then((response) => {
+              if (!response.ok) {
+                response.json().then(data => {
+                  translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
+                    reject(translatedText);
+                  }).catch(error => {
+                    reject('Erro ao traduzir a mensagem: ' + error);
+                  });
+                });
+              } else {
+                response.json().then(data => { 
+                  sessionStorage.setItem("login", data.id);
+                  resolve(data);
+                });
+              }
+            })
+            .catch((error) => {
+              reject('Erro na requisição: ' + error.message);
+            });
+        });
+
+        navigate("/home");
+      } catch (error) {
         setIsLoading(false);
-        sessionStorage.setItem("login", true)
-        navigate("/home")
-      }, 2000);
+        setErrorMessage(error); 
+      }
 
     } else {
-      setErrorMessage('Por favor, preencha todos os campos.');
+      setErrorMessage('Preencha todos os campos, por favor.');
     }
   };
 
-  const cadastro = () => {
-    navigate("/cadastro")
+  const register = () => {
+    navigate("/register")
   }
 
   const togglePasswordVisibility = () => {
@@ -53,7 +92,7 @@ function Login() {
     return (
       <div className={style.background}>
         <div className={style.loginContainer}>
-          <h2>Controle Financeiro</h2>
+          <h2>Financial Control</h2>
             <>
               <div className={style.inputContainer}>
                 <input
@@ -75,9 +114,9 @@ function Login() {
                   {passwordVisible ? <FaEye /> : <FaEyeSlash />}
                 </span>
               </div>
-              <p className={errorMessage ? style.erro : style.erroEscondido}>{errorMessage}</p>
-              <button onClick={handleLogin}>Entrar</button>
-              <p onClick={cadastro} className={style.cadastro}>Não tem uma conta? Cadastre-se</p>
+              <p className={errorMessage ? style.error : style.hiddenError}>{errorMessage}</p>
+              <button onClick={handleLogin}>Login</button>
+              <p onClick={register} className={style.register}>Não tem uma conta? Cadastre-se</p>
             </>
         </div>
       </div>

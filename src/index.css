@@ -20,6 +20,12 @@
   --neutra: #E5E5E5;
   --preto: #333333;
   --branco: #F5F5F5;
+  --cinza: #6b7280;
+  --green: #16a34a;
+  --red: #dc2626;
+  
+  --spacing: 1rem;
+  --border-radius: 1rem;
 }
 
 body {

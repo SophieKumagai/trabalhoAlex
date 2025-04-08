@@ -17,7 +17,7 @@ function Login() {
   useEffect(() => {
     const login = sessionStorage.getItem("login")
     if (login) {
-      navigate("/home")
+      navigate("/home/main")
     }
   })
 
@@ -69,7 +69,7 @@ function Login() {
             });
         });
 
-        navigate("/home");
+        navigate("/home/main");
       } catch (error) {
         setIsLoading(false);
         setErrorMessage(error); 

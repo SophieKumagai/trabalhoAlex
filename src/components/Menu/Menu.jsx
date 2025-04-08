@@ -26,7 +26,7 @@ function Menu() {
       <div className={style.container}>
         <ul>
           <li>
-            <NavLink to="/home/control" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
+            <NavLink to="/home/main" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
               <FaChartBar className={style.icon} /> Resumo Financeiro
             </NavLink>
           </li>

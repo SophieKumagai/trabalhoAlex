@@ -92,8 +92,11 @@ function Signup() {
                 .then(async (response) => {
                   if (!response.ok) {
                     response.json().then(data => {
-                      console.log(data.detail);
-                      translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
+                      const details = data.detail;
+                      const errorMessages = Array.isArray(details)
+                        ? details.map(item => item.msg).join(', ')
+                        : details;
+                      translateText({text: errorMessages, targetLanguage: 'pt'}).then(translatedText => {
                         reject(translatedText);
                       }).catch(error => {
                         reject('Erro ao traduzir a mensagem: ' + error.message);
@@ -126,6 +129,12 @@ function Signup() {
       setErrorMessage('Preencha todos os campos, por favor.');
     }
   };
+
+  document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      handleSignup()
+    }
+  });
 
   const login = () => {
     navigate("/");

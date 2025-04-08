@@ -5,6 +5,8 @@ import Login from "../Login/Login.jsx"
 import Layout from "../Layout/Layout.jsx"
 import Signup from "../Signup/Signup.jsx"
 import FinancialControl from "../Transactions/FinancialControl/FinancialControl.jsx"
+import Goals from "../Goals/Goals.jsx"
+import Category from "../Category/Category.jsx"
 
 function App() {
   return (
@@ -19,7 +21,8 @@ function App() {
         <Route path="/home" element={<Layout />}>
           <Route path="/home/control" element={<FinancialControl />} />
           <Route path="/home/transactions" element={<FinancialControl />} />
-          <Route path="/home/goals" element={<FinancialControl />} />
+          <Route path="/home/category" element={<Category />} />
+          <Route path="/home/goals" element={<Goals />} />
         </Route>
       </Routes>
     </Router>

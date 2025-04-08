@@ -41,8 +41,11 @@ function TransactionForm({
 
       if (!response.ok) {
         const errorData = await response.json();
-        const errorMessage = errorData.detail || 'Erro desconhecido';
-        const translatedText = await translateText({ text: errorMessage, targetLanguage: 'pt' });
+        const details = errorData.detail;
+        const errorMessages = Array.isArray(details)
+          ? details.map(item => item.msg).join(', ')
+          : details;
+        const translatedText = await translateText({ text: errorMessages, targetLanguage: 'pt' });
         throw new Error(translatedText);
       }
 
@@ -73,8 +76,11 @@ function TransactionForm({
 
       if (!response.ok) {
         const errorData = await response.json();
-        const errorMessage = errorData.detail || 'Erro desconhecido';
-        const translatedText = await translateText({ text: errorMessage, targetLanguage: 'pt' });
+        const details = errorData.detail;
+        const errorMessages = Array.isArray(details)
+          ? details.map(item => item.msg).join(', ')
+          : details;
+        const translatedText = await translateText({ text: errorMessages, targetLanguage: 'pt' });
         throw new Error(translatedText);
       }
 

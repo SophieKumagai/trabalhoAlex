@@ -5,6 +5,7 @@ function Goals() {
         <div className={style.background}>
             <div className={style.container}>
                 <h1>Metas</h1>
+                <p>Em desenvolvimento...</p>
             </div>
       </div>
     )

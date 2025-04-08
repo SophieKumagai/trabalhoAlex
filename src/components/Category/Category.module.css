@@ -119,3 +119,10 @@
   font-size: 14px;
   padding: 20px 0;
 }
+
+.icon {
+  margin-right: 10px;
+  font-size: 20px;
+  color: var(--primary-color);
+  cursor: pointer;
+}

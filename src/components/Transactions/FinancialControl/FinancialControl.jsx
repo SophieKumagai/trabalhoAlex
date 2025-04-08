@@ -170,7 +170,9 @@ function FinancialControl() {
 
       const list = await response.json();
       
-      const newBalance = list.amount
+      const income = list.income
+      const outcome = list.outcome
+      const newBalance = income - outcome
       setTotalBalance(newBalance);
 
     } catch (error) {

@@ -2,7 +2,7 @@
     background-color: var(--primary-color);
     color: var(--branco);
     width: 50rem;
-    height: 15rem;
+    height: fit-content;
     padding: 0.5rem 3rem;
     border-radius: 20px;
     margin-top: 3rem;

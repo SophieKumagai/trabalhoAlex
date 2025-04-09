@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import style from "./Main.module.css";
-import Loading from '../Loading/Loading.jsx';
+import Loading2 from '../Loading2/Loading2.jsx';
 import loadingGif from '../../assets/giphy.gif';
 
 function Main () {
@@ -41,7 +41,7 @@ function Main () {
 
   if (!data) {
     return (
-      <Loading img={loadingGif} />
+      <Loading2 img={loadingGif} />
     );
   }
 

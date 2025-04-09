@@ -23,11 +23,45 @@ function App() {
           { title: "Renovation", amount: "$200" },
           { title: "Xbox", amount: "$820" },
         ],
+        transactions: [
+          { receiver: "Tesco Market", type: "Shopping", date: "13 Dec 2020", amount: "75.67"},
+          { receiver: "ElectroMen Market", type: "Shopping", date: "14 Dec 2020", amount: "250.00"},
+          { receiver: "Fiogio Restaurant", type: "Food", date: "07 Dec 2020", amount: "19.50"},
+          { receiver: "John Mathew Kayne", type: "Sport", date: "06 Dec 2020", amount: "350"},
+          { receiver: "Ann Marlin", type: "Shopping", date: "31 Nov 2020", amount: "430"},
+        ],
+        statistics: [
+          {
+            label: "Shopping",
+            percentage: 52,
+            color: "#FC9354",
+            bgColor: "#FFE9DB",
+          },
+          {
+            label: "Electronics",
+            percentage: 21,
+            color: "#1FC26A",
+            bgColor: "#DBF6E7",
+          },
+          {
+            label: "Travels",
+            percentage: 74,
+            color: "#589BFF",
+            bgColor: "#E3EDFF",
+          },
+          {
+            label: "Travels",
+            percentage: 74,
+            color: "#589BFF",
+            bgColor: "#E3EDFF",
+          }
+        ]
       });
     }, 1000);
   }, []);
 
   return (
+
     <Router> 
       <Routes> 
 
@@ -40,10 +74,7 @@ function App() {
           <Route path="/home/control" element={<FinancialControl />} />
           <Route path="/home/transactions" element={<FinancialControl />} />
           <Route path="/home/goals" element={<FinancialControl />} />
-          <Route path="/home/principal" element={<Main data={data}/>} />
-          <Route path="/home/controle" element={<ControleFinanceiro />} />
-          <Route path="/home/transacoes" element={<ControleFinanceiro />} />
-          <Route path="/home/metas" element={<ControleFinanceiro />} />
+          <Route path="/home/main" element={<Main data={data}/>} />
         </Route>
       </Routes>
     </Router>

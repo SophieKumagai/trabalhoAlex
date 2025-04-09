@@ -27,7 +27,8 @@
 .subtitle {
   font-size: 1rem;
   color: var(--cinza);
-  margin-bottom: var(--spacing);
+  margin-bottom: 2rem;
+  margin-top: 0;
 }
 
 .card {
@@ -56,9 +57,9 @@
 
 .cardTitle {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  padding-bottom: .5rem;
 }
 
 .balance {
@@ -90,7 +91,6 @@
   font-weight: bold;
 }
 
-/* Botão de adicionar metas */
 .addGoal {
   display: flex;
   align-items: center;
@@ -106,10 +106,22 @@
 }
 
 .goals {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+.goalsTitle {
+  display: inline;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.goalsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
 }
 
 .goalCard {
@@ -131,4 +143,95 @@
 .goalTitle {
   font-size: 1rem;
   color: var(--cinza);
+}
+
+.grid{
+  display: grid;
+  gap:1.5rem;
+  grid-template-rows: repeat(2,1fr);
+  grid-template-columns: repeat(2,1fr);
+}
+
+.transactionTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.transactionTable thead {
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.transactionTable th, .transactionTable td {
+  padding: 10px;
+  text-align: left;
+}
+
+.transactionTable tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.transactionTable tbody tr:last-child {
+  border-bottom: none;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.amount {
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.statIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.05);
+}
+
+.statDetails {
+  flex-grow: 1;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: var(--preto);
+  margin-bottom: 0.2rem;
+}
+
+.progressBarBackground {
+  height: 0.5rem;
+  background-color: #eee;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s ease-in-out;
+}
+
+.statPercent {
+  font-weight: bold;
+  font-size: 1rem;
+  color: var(--preto);
 }

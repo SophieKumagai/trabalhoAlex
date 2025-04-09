@@ -1,0 +1,97 @@
+.title {
+    display: flex;
+    height: 3rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon {
+    font-size: 25px;
+    color: var(--destaque);
+}
+
+.listContainer {
+    margin-top: 20px;
+}
+
+.listTitle{
+    color: var(--destaque);
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f1f3f5;
+    margin-bottom: 5px;
+}
+
+.textIncome {
+    color: #38b000;
+    font-weight: bold;
+}
+
+.textExpense {
+    color: #d90429;
+    font-weight: bold;
+}
+
+.emptyMessage {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    padding: 20px 0;
+}
+
+.transactionItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f1f3f5;
+    margin-bottom: 5px;
+}
+
+.description {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--destaque);
+    margin-bottom: 5px;
+}
+
+.transactionItem span {
+    flex: 1;
+    text-align: center;
+}
+
+.description span {
+    flex: 1;
+    text-align: center;
+}
+
+.transactionDate,
+.transactionDescription {
+    font-size: 14px;
+    color: #666;
+}
+
+.text {
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.transactionName {
+    font-weight: 600;
+    color: #333;
+}
+
+.transactionValue {
+    font-weight: bold;
+}

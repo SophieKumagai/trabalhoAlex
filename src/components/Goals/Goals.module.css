@@ -1,0 +1,19 @@
+.container {
+    background-color: var(--primary-color);
+    color: var(--branco);
+    width: 50rem;
+    height: 30rem;
+    padding: 0.5rem 3rem;
+    border-radius: 20px;
+    margin-top: 3rem;
+  }
+  
+.background {
+    height: 100vh;
+    width: 83vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    flex-direction: column;
+}

@@ -1,0 +1,22 @@
+meta {
+  name: register
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://expense-control-backend-8rmh.onrender.com/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id_email": "sophie.teste@gmail.com",
+    "id_cpf": "40938168169",
+    "nm_first_name": "Sophie",
+    "nm_last_name": "Kumagai",
+    "dt_birthdate": "2007-07-20",
+    "ds_password": "12345678"
+  }
+}

@@ -23,6 +23,9 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+    server: {
+      port: 3000
+    },
     rules: {
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,

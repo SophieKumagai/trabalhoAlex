@@ -3,7 +3,7 @@ import style from "./Menu.module.css";
 import img from "../../assets/loading.gif";
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; 
-import { FaChartBar, FaMoneyCheck, FaMedal } from 'react-icons/fa';
+import { FaChartBar, FaMoneyCheck, FaMedal, FaTags } from 'react-icons/fa';
 
 function Menu() {
 
@@ -26,13 +26,18 @@ function Menu() {
       <div className={style.container}>
         <ul>
           <li>
-            <NavLink to="/home/control" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
+            <NavLink to="/home/main" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
               <FaChartBar className={style.icon} /> Resumo Financeiro
             </NavLink>
           </li>
           <li>
             <NavLink to="/home/transactions" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
               <FaMoneyCheck className={style.icon} /> Transações
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/home/category" end className={({ isActive }) => `${isActive ? style.active : style.link}`}>
+              <FaTags className={style.icon} /> Categorias
             </NavLink>
           </li>
           <li>

@@ -3,35 +3,16 @@
   color: var(--branco);
   width: 50rem;
   height: 30rem;
-  padding: 1rem 3rem;
+  padding: 0.5rem 3rem;
   border-radius: 20px;
   margin-top: 3rem;
-}
-
-.container::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.container::-webkit-scrollbar-track {
-  background: var(--primary-color);
-}
-
-.container::-webkit-scrollbar-thumb {
-  background: var(--destaque);
-  border-radius: 50px;
-}
-
-.container::-webkit-scrollbar-button {
-  display: block;
 }
 
 .background {
   height: 100vh;
   width: 83vw;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-size: contain;
-  background-position: center;
+  align-items: center;  
+  overflow-y: auto;
   flex-direction: column;
 }

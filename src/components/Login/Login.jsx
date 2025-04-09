@@ -17,7 +17,7 @@ function Login() {
   useEffect(() => {
     const login = sessionStorage.getItem("login")
     if (login) {
-      navigate("/home")
+      navigate("/home/main")
     }
   })
 
@@ -47,8 +47,12 @@ function Login() {
             .then((response) => {
               if (!response.ok) {
                 response.json().then(data => {
-                  translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
-                    reject(translatedText);
+                  const details = data.detail;
+                  const errorMessages = Array.isArray(details)
+                    ? details.map(item => item.msg).join(', ')
+                    : details;
+                  translateText({text: errorMessages, targetLanguage: 'pt'}).then(translatedText => {
+                    reject(translatedText); 
                   }).catch(error => {
                     reject('Erro ao traduzir a mensagem: ' + error);
                   });
@@ -65,7 +69,7 @@ function Login() {
             });
         });
 
-        navigate("/home");
+        navigate("/home/main");
       } catch (error) {
         setIsLoading(false);
         setErrorMessage(error); 
@@ -75,6 +79,12 @@ function Login() {
       setErrorMessage('Preencha todos os campos, por favor.');
     }
   };
+
+  document.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+      handleLogin()
+    }
+  });
 
   const register = () => {
     navigate("/register")

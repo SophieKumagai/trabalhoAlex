@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import style from "./FinancialControl.module.css";
 import Balance from "../Balance/Balance";
 import TransactionForm from '../TransactionForm/TransactionForm';
 import TransactionList from "../TransactionList/TransactionList";
-import Loading from '../../Loading/Loading.jsx';
+import Loading2 from '../../Loading2/Loading2.jsx';
 import loadingGif from '../../../assets/giphy.gif';
 
 function FinancialControl() {
-  let transactions = [];
+  const [transactions, setTransactions] = useState([]);
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +16,12 @@ function FinancialControl() {
   const [category, setCategory] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [totalBalance, setTotalBalance] = useState(0);
+
+  useEffect(() => {
+    getTransactions();
+    total()
+  })
 
   // traduzir o texto
   async function translateText ({text, targetLanguage}) {
@@ -25,9 +31,10 @@ function FinancialControl() {
   }
 
   async function getTransactions() {
+    let user = sessionStorage.getItem("login");
     try {
       const data = await new Promise((resolve, reject) => {
-        fetch(`https://expense-control-backend-8rmh.onrender.com/transactions`, {
+        fetch(`https://expense-control-backend-8rmh.onrender.com/transactions/user/${parseInt(user)}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -36,14 +43,23 @@ function FinancialControl() {
           .then(async (response) => {
             if (!response.ok) {
               response.json().then(data => {
-                translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
+                const details = data.detail;
+                const errorMessages = Array.isArray(details)
+                  ? details.map(item => item.msg).join(', ')
+                  : details;
+                translateText({text: errorMessages, targetLanguage: 'pt'}).then(translatedText => {
                   reject(translatedText);
+                  setTransactions([])
                 }).catch(error => {
                   reject('Erro ao traduzir a mensagem: ' + error.message);
                 });
               });
             } else {
               response.json().then(data => {
+                let list = data;
+                console.log(list);
+                const newTransactions = list;
+                setTransactions(newTransactions);
                 resolve(data);
               });
             }
@@ -61,22 +77,8 @@ function FinancialControl() {
     if (date && title && description) {
 
       // fazendo verificações
-      if (currency == 0) {
-        setErrorMessage("Selecione uma moeda.");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-      
       if (amount <= 0) {
         setErrorMessage("O valor deve ser maior que zero.");
-        return;
-      } else {
-        setErrorMessage("");
-      }
-
-      if (category == 0) {
-        setErrorMessage("Selecione uma categoria.");
         return;
       } else {
         setErrorMessage("");
@@ -105,7 +107,11 @@ function FinancialControl() {
             .then(async (response) => {
               if (!response.ok) {
                 response.json().then(data => {
-                  translateText({text: data.detail, targetLanguage: 'pt'}).then(translatedText => {
+                  const details = data.detail;
+                  const errorMessages = Array.isArray(details)
+                    ? details.map(item => item.msg).join(', ')
+                    : details;
+                  translateText({text: errorMessages, targetLanguage: 'pt'}).then(translatedText => {
                     reject(translatedText);
                   }).catch(error => {
                     reject('Erro ao traduzir a mensagem: ' + error.message);
@@ -115,7 +121,7 @@ function FinancialControl() {
                 response.json().then(data => {
                   setIsLoading(false)
                   // recarregar as transações
-
+                  getTransactions();
                   resolve(data);
                 });
               }
@@ -126,6 +132,7 @@ function FinancialControl() {
             });
         });
       } catch (error) {
+        setIsLoading(false)
         setErrorMessage(error);
       }
 
@@ -141,13 +148,42 @@ function FinancialControl() {
     }
   };
 
-  const totalBalance = transactions.reduce((acc, t) => {
-    return t.type === 1 ? acc + t.amount : acc - t.amount;
-  }, 0);
+  async function total() {
+    let user = sessionStorage.getItem("login");
+    try {
+      const response = await fetch(`https://expense-control-backend-8rmh.onrender.com/users/amount/${parseInt(user)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const details = errorData.detail;
+        const errorMessages = Array.isArray(details)
+          ? details.map(item => item.msg).join(', ')
+          : details;
+        const translatedText = await translateText({ text: errorMessages, targetLanguage: 'pt' });
+        throw new Error(translatedText);
+      }
+
+      const list = await response.json();
+      
+      const income = list.income
+      const outcome = list.outcome
+      const newBalance = income - outcome
+      setTotalBalance(newBalance);
+
+    } catch (error) {
+      console.error('Erro:', error);
+      setErrorMessage(error.message);
+    }
+  }
 
   if (isLoading) {
     return (
-      <Loading img={loadingGif} />
+      <Loading2 img={loadingGif} />
     );
   } else {
     return (
